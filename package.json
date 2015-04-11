@@ -1,0 +1,22 @@
+{
+  "name": "auto-logic",
+  "version": "0.0.0",
+  "description": "auto complete logic",
+  "main": "completer.js",
+  "scripts": {
+    "test": "mocha -u tdd --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mucbuc/auto-logic.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mucbuc/auto-logic/issues"
+  },
+  "homepage": "https://github.com/mucbuc/auto-logic",
+  "dependencies": {
+    "cd-agent": "*"
+  }
+}
