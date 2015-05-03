@@ -1,0 +1,6 @@
+[
+  "ls -la",
+  "git commit -am '#BRANCH_NAME",
+  "abc",
+  "abd"
+]

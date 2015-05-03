@@ -1,9 +1,30 @@
 var assert = require( 'assert' )
-  , Completer = require( '../completer.js' );
+  , path = require( 'path' )
+  , Completer = require( '../completer.js' )
+  , Expector = require( 'expector' ).Expector;
 
-suite( 'basic', function() {
+assert( typeof Completer === 'function' );
 
-	test( 'existance', function() {
-		assert( typeof Completer === 'function' );
+suite( 'completer', function() {
+	
+	var completer
+	  , expector;
+
+	setup( function() {
+		completer = new Completer( { 'macroPath': 'test' } );
+		expector = new Expector();
 	});
+
+	teardown( function() {
+		expector.check();
+	}); 
+
+	test( 'callback', function(done) {
+		expector.expect( 'done' );
+		completer.complete( 'aasdfasf', function() {
+			expector.emit( 'done' );
+			done();
+		} ); 
+	});
+
 });

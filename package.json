@@ -16,7 +16,10 @@
     "url": "https://github.com/mucbuc/auto-logic/issues"
   },
   "homepage": "https://github.com/mucbuc/auto-logic",
-  "dependencies": {
-    "cd-agent": "*"
+  "devDependencies": {
+    "cd-agent": "*",
+    "flow-troll": "*",
+    "expector": "*",
+    "chai": "*"
   }
 }
