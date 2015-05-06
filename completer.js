@@ -14,7 +14,7 @@ function Completer(options) {
   
   stack.use( function(context) {
     if (!context.hasOwnProperty('macroPath')) {
-      context.macroPath = path.join(getMacroPath(), 'macros.json');
+      context.macroPath = getMacroPath();
     }
     context.next(context);
   
@@ -23,7 +23,7 @@ function Completer(options) {
           &&  options.hasOwnProperty('macroPath')) {
         return options.macroPath;
       }
-      return path.dirname(process.argv[1])
+      return path.join(__dirname, 'macros.json');
     }
   });
   stack.use( matchMacro );
