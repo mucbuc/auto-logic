@@ -17,7 +17,7 @@ suite( 'matchmacro', function() {
     expector.check(); 
   }); 
 
-  test( 'git commit message', function(done) {
+  test.skip( 'git commit message', function(done) {
     var context = {
           input: 'git co',
           macroPath: macroPath,

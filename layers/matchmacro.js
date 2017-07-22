@@ -11,7 +11,9 @@ function tryMatchMacros(o) {
         o.next(o);
       }
       else {
-        var macros = JSON.parse(data.toString());
+        var macros = JSON.parse(data.toString())
+          , matches = [];
+                 
         for(var index in macros.sort()) {
           var macro = macros[index]
           if (!macro.indexOf(o.input)) { 
@@ -22,7 +24,8 @@ function tryMatchMacros(o) {
                 macro += ' ';   
                 o.next( { input: o.input, result: [ macro ] } );
               });
-
+              return;
+          
               function getCurrentBranch(cb) {
                 cp.exec( 'git rev-parse --abbrev-ref HEAD', function(err, stdout) {
                   if (err) throw err;
@@ -31,12 +34,17 @@ function tryMatchMacros(o) {
               }
             }
             else {
-              o.next( { input: o.input, result: [ macro ] } );
+              matches.push( macro );
             }
-            return;
           }
         }
-        o.next(o);
+
+        if (matches.length) {
+          o.next( { input: o.input, result: matches } );
+        }
+        else {
+          o.next(o);
+        }
       }
     });
   }
