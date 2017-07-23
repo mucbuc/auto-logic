@@ -11,21 +11,22 @@ function tryMatchMacros(o) {
         o.next(o);
       }
       else {
-        var macros = JSON.parse(data.toString())
-          , matches = [];
-                 
-        for(var index in macros.sort()) {
+        var macros = JSON.parse(data.toString()).sort()
+          , matches = []
+          , doneCounter = 0;
+            
+        for(var index in macros) {
           var macro = macros[index]
-          if (!macro.indexOf(o.input)) { 
+          if (!macro.indexOf(o.input)) {
+            
             if (macro.indexOf(BRANCH_NAME_PLACEHOLDER) != -1) {
+              var macroCpy = macro;
               getCurrentBranch( function(stdout) {
                 var branch = stdout.toString().slice(0, -1);
-                macro = macro.replace( BRANCH_NAME_PLACEHOLDER, branch );
-                macro += ' ';   
-                o.next( { input: o.input, result: [ macro ] } );
+                matches.push( macroCpy.replace( BRANCH_NAME_PLACEHOLDER, branch ) );
+                check_done();
               });
-              return;
-          
+              
               function getCurrentBranch(cb) {
                 cp.exec( 'git rev-parse --abbrev-ref HEAD', function(err, stdout) {
                   if (err) throw err;
@@ -35,15 +36,25 @@ function tryMatchMacros(o) {
             }
             else {
               matches.push( macro );
+              check_done();
             }
           }
-        }
+          else {
+            check_done();
+          }
 
-        if (matches.length) {
-          o.next( { input: o.input, result: matches } );
-        }
-        else {
-          o.next(o);
+          function check_done() {
+            ++doneCounter;
+            if (doneCounter == macros.length) {
+              if (matches.length) {
+                o.next( { input: o.input, result: matches } );
+              }
+              else {
+                o.next(o);
+              }
+            }
+          }
+
         }
       }
     });

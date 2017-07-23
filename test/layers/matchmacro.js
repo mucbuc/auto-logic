@@ -22,14 +22,16 @@ suite( 'matchmacro', function() {
           input: 'git co',
           macroPath: macroPath,
           next: function(o) {
+
             assert( typeof o !== 'undefined' );
             assert( o.hasOwnProperty('result') );
+
             expector.emit( o.result );
             done();
           }
         };
 
-    expector.expect( 'git commit -am \'master ' );
+    expector.expect( 'git commit -am \'master' );
     matchMacro( context );
   });
 
