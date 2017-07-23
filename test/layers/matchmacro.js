@@ -31,7 +31,7 @@ suite( 'matchmacro', function() {
           }
         };
 
-    expector.expect( 'git commit -am \'master' );
+    expector.expect( 'git commit -am \'master ' );
     matchMacro( context );
   });
 
@@ -47,7 +47,7 @@ suite( 'matchmacro', function() {
           }
         };
 
-    expector.expect( 'ls -la' );
+    expector.expect( 'ls -la ' );
     matchMacro( context ); 
   });
 }); 

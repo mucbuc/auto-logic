@@ -16,7 +16,7 @@ function tryMatchMacros(o) {
           , doneCounter = 0;
             
         for(var index in macros) {
-          var macro = macros[index]
+          var macro = macros[index] + " ";
           if (!macro.indexOf(o.input)) {
             
             if (macro.indexOf(BRANCH_NAME_PLACEHOLDER) != -1) {
